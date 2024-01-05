@@ -1,2 +1,4 @@
-# tic-tac-toe
-Classic tic-tac-toe game implemented in Python
+# RSA Encryption Application
+RSA key generation used for file encryption/decryption
+
+Goal: Create an encryption app using RSA

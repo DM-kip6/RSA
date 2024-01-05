@@ -12,12 +12,18 @@
 #       Read/write from file
 #
 #   Current things that don't work:
-#       File Input (unimplemented currently)
+#       File Input
+#           Need to prompt user all 3 times in order to get correct file writes
 
 
 #   Current things to add:
-#       Need to change from hard-coded file to file input
+#       Padding
+#           Pick a scheme
+#
+#
+#
 #       Storage for key pairs
+#           Take from tkinter filedialog.askopenfile or .askopenfilename
 #           Right now it just generates a new key pair every run, which won't work if we want to store an encrypted file and decrypt it later as we won't know the keys anymore
 #-------------------------------------------------------------------------------------------------
 
@@ -25,7 +31,7 @@
 from primeTesting import *
 #from paddingScheme import *
 #import tkinter
-#import tkinter.filedialog
+from tkinter import filedialog as fd
 
 
 
@@ -71,7 +77,11 @@ def decrypt(plaintext,private_key,modulus):
     return plaintext
 
 
-#there are some changes here
+def prompt_for_file():
+
+    chosen_filename = fd.askopenfilename()
+
+    return chosen_filename
 
 
 
@@ -83,11 +93,23 @@ def main():
 
     #string = "Hello! This project is for MTH330: Cryptography, with Dr. John Coleman!"                         #Chosen plaintext for testing
     
-    input_file = "sample1.txt"
-    with open(input_file, "r") as file:
+
+    #changes
+    print("Choose a file to perform next tasks on")
+    file = prompt_for_file()
+    with open(file, "r") as file:
         string = file.read()
 
     print("\nPlaintext: ", string)
+    #to here
+
+
+    
+    #input_file = "sample1.txt"
+    #with open(input_file, "r") as file:
+    #    string = file.read()
+
+    #print("\nPlaintext: ", string)
     
 
 
@@ -101,8 +123,9 @@ def main():
 
 
     #Writing encryption to file
-    encrypted_file = "sample1.txt"
-    with open("encrypted_text", "w") as encrypted_file1:
+    print("Choose a file to save encryption to")
+    encrypted_file = prompt_for_file()
+    with open(encrypted_file, "w") as encrypted_file1:
         encrypted_file1.write(ciphertext_string)
 
     print(f"\nEncrypted text written to: {encrypted_file}")
@@ -116,7 +139,8 @@ def main():
 
     
     #writing decryption to file
-    decrypted_file = "sample1.txt"
+    print("Choose a file to save decryption to")
+    decrypted_file = prompt_for_file()
     with open(decrypted_file, "w") as decrypted_file1:
         decrypted_file1.write(plaintext)
 
